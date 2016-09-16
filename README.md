@@ -1,0 +1,1 @@
+Container for a jenkins slave. Idea is to have the jenkins-master dynamically spin these up as needed.
