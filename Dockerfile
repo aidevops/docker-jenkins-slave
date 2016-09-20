@@ -30,12 +30,13 @@ RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-c
 
 COPY files/resolv.conf /etc/resolv.conf
 
+COPY files/jenkins-slave /bin/jenkins-slave
+RUN chmod +x /bin/jenkins-slave 
+
 USER jenkins
 
 RUN mkdir /home/jenkins/.jenkins
 VOLUME /home/jenkins/.jenkins
 WORKDIR /home/jenkins
 
-COPY files/jenkins-slave /usr/local/bin/jenkins-slave
-
-ENTRYPOINT ["jenkins-slave"]
+ENTRYPOINT ["/bin/jenkins-slave"]
