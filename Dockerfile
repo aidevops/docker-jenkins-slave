@@ -12,6 +12,7 @@ RUN yum update -y \
     && yum clean all 
 
 ENV JENKINS_HOME /home/jenkins
+ENV DOCKER_API_VERSION 1.23
 
 RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins
 RUN echo "jenkins  ALL=(ALL)  ALL" >> /etc/sudoers
@@ -29,6 +30,11 @@ COPY files/resolv.conf /etc/resolv.conf
 
 COPY files/jenkins-slave /bin/jenkins-slave
 RUN chmod +x /bin/jenkins-slave 
+
+RUN touch /var/run/docker.sock \
+    && chown -R jenkins:jenkins /var/run/docker.sock \
+    && curl -fsSL https://get.docker.com/ | sh \
+    && usermod -aG docker jenkins
 
 USER jenkins
 
