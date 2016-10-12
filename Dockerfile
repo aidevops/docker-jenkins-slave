@@ -11,14 +11,14 @@ RUN yum update -y \
     sudo \
     && yum clean all 
 
-ENV JENKINS_HOME=/home/jenkins_home \
+ENV JENKINS_HOME=/home/jenkins \
     DOCKER_API_VERSION=1.23 \
     SLAVE_VERSION=2.62
 
 RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins \
     && echo "jenkins  ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers \
-    && mkdir -p /home/jenkins_home/.jenkins \
-    && chown -R jenkins:jenkins /home/jenkins_home \
+    && mkdir -p /home/jenkins/.jenkins \
+    && chown -R jenkins:jenkins /home/jenkins \
     && curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${SLAVE_VERSION}/remoting-${SLAVE_VERSION}.jar \
     && chmod 755 /usr/share/jenkins \
     && chmod 644 /usr/share/jenkins/slave.jar 
@@ -34,7 +34,7 @@ RUN touch /var/run/docker.sock \
 
 USER jenkins
 
-VOLUME ["/home/jenkins_home/"]
-WORKDIR /home/jenkins_home
+VOLUME ["/home/jenkins/"]
+WORKDIR /home/jenkins
 
 ENTRYPOINT ["/bin/jenkins-slave"]
