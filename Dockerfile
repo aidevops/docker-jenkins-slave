@@ -23,7 +23,6 @@ RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins \
     && chmod 755 /usr/share/jenkins \
     && chmod 644 /usr/share/jenkins/slave.jar 
 
-COPY files/resolv.conf /etc/resolv.conf
 COPY files/jenkins-slave /bin/jenkins-slave
 
 RUN touch /var/run/docker.sock \
