@@ -30,7 +30,10 @@ RUN touch /var/run/docker.sock \
     && chown -R jenkins:jenkins /var/run/docker.sock \
     && curl -fsSL https://get.docker.com/ | sh \
     && usermod -aG docker jenkins \
-    && chmod +x /bin/jenkins-slave
+    && chmod +x /bin/jenkins-slave \
+    && curl -O https://storage.googleapis.com/kubernetes-release/release/v1.3.6/bin/linux/amd64/kubectl \
+    && chmod +x kubectl \
+    && mv kubectl /usr/local/bin/kubectl
 
 USER jenkins
 
