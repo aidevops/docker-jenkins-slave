@@ -2,8 +2,7 @@
 
 node('base') {
   stage 'Checkout'
-  sh 'pwd'
-  sh 'ls'
   checkout scm
-  sh 'ls'
+  stage 'Build'
+  sh 'docker build -t quay.io/prsn/jenkins:slave .'
 }
