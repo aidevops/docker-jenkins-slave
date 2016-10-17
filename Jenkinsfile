@@ -4,6 +4,7 @@ node('base') {
   stage 'Checkout'
   checkout scm
   stage 'Build'
-  env.DOCKER_HOST = "tcp://localhost:4243"
+  env.DOCKER_HOST = "tcp://dockerhost"
+  sh "cat /etc/hosts"
   sh "docker build -t test ."
 }
