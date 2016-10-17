@@ -4,5 +4,5 @@ node('base') {
   stage 'Checkout'
   checkout scm
   stage 'Build'
-  sh "docker"
+  sh "docker ps -a"
 }
