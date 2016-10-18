@@ -7,11 +7,12 @@ RUN yum update -y \
     git \
     wget \
     openssh-server \
-    java-1.8.0-openjdk \
+    java-1.8.0-openjdk-devel \
     sudo \
     && yum clean all 
 
 ENV JENKINS_HOME=/home/jenkins \
+    JAVA_HOME=/usr/lib/jvm/java-openjdk \
     DOCKER_API_VERSION=1.23 \
     SLAVE_VERSION=3.0
 
