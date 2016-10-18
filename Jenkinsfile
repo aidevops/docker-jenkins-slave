@@ -1,26 +1,26 @@
 #!groovy
 
 node('base') {
-  stage 'Checkout - pull git repo' {
+  stage 'Checkout' {
     currentBuild.displayName="Checkout"
     checkout scm
   }
 
-  stage 'Build - build image' {
+  stage 'Build' {
     currentBuild.displayName="Build"
     sh "docker build -t quay.io/prsn/jenkins:slave --no-cache=true --pull=true ."
   }
 
-  stage 'Test - clair scan' {
+  stage 'Test' {
     currentBuild.displayName="Test"
   }
 
-  stage 'Accept - approve image' {
+  stage 'Accept' {
     currentBuild.displayName="Accept"
     input 'Image Acceptable?'
   }
 
-  stage 'Publish - push image' {
+  stage 'Publish' {
     currentBuild.displayName="Publish"
     sh "docker push quay.io/prsn/jenkins:slave"
   }
