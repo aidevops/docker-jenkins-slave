@@ -17,6 +17,7 @@ ENV JENKINS_HOME=/home/jenkins \
 
 RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins \
     && echo "jenkins  ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers \
+    && sed -i -e 's/Defaults    requiretty.*/ #Defaults    requiretty/g' /etc/sudoers \
     && mkdir -p /home/jenkins/.jenkins \
     && chown -R jenkins:jenkins /home/jenkins \
     && curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${SLAVE_VERSION}/remoting-${SLAVE_VERSION}.jar \
@@ -25,9 +26,7 @@ RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins \
 
 COPY files/jenkins-slave /bin/jenkins-slave
 
-RUN touch /var/run/docker.sock \
-    && chown -R jenkins:jenkins /var/run/docker.sock \
-    && curl -fsSL https://get.docker.com/ | sh \
+RUN curl -fsSL https://get.docker.com/ | sh \
     && usermod -aG docker jenkins \
     && chmod +x /bin/jenkins-slave \
     && curl -O https://storage.googleapis.com/kubernetes-release/release/v1.3.6/bin/linux/amd64/kubectl \
