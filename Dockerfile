@@ -13,7 +13,7 @@ RUN yum update -y \
 
 ENV JENKINS_HOME=/home/jenkins \
     DOCKER_API_VERSION=1.23 \
-    SLAVE_VERSION=2.62
+    SLAVE_VERSION=3.0
 
 RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins \
     && echo "jenkins  ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers \
