@@ -22,7 +22,7 @@ node('base') {
 
   stage('Publish') {
     currentBuild.displayName="Publish"
-    sh "docker push quay.io/prsn/jenkins:slave"
+    // sh "docker push quay.io/prsn/jenkins:slave"
   }
 
 }
